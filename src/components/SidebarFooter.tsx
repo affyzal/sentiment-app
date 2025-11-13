@@ -6,7 +6,7 @@ import { FaLinkedin, FaGithub } from "react-icons/fa";
 const SidebarFooter = () => {
   return (
     <div className="mt-auto px-6 py-4 border-t border-slate-800 text-zinc-400 text-sm flex items-center justify-between">
-      <Link href="https://afzalmiah.dev" target="_blank" rel="noopener noreferrer" className="hover:text-[#64ffda] transition-colors">
+      <Link href="https://afzalmiah.dev" target="_blank" className="hover:text-[#64ffda] transition-colors">
         <p className="text-xs">&copy; {new Date().getFullYear()} Afzal Miah</p>
       </Link>
       <div className="flex gap-2">

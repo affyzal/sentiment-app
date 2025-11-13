@@ -71,7 +71,7 @@ export default function AboutPage() {
       >
         <h2 className="text-xl font-semibold text-[#64ffda] mb-3">Author</h2>
         <p className="text-slate-300 mb-4">
-          Created by <span className="text-[#64ffda] font-medium">Afzal Miah</span> — a developer interested in 
+          Created by <span className="text-[#64ffda] font-medium">Afzal Miah</span> - a developer interested in 
           natural language processing, data visualization, and interactive storytelling through data.
         </p>
 
@@ -93,7 +93,6 @@ export default function AboutPage() {
           <a
             href="https://afzalmiah.dev"
             target="_blank"
-            rel="noopener noreferrer"
             className="flex items-center gap-2 hover:text-[#64ffda] transition"
           >
             <FaGlobe className="w-4 h-4" /> Website
@@ -108,7 +107,7 @@ export default function AboutPage() {
         transition={{ delay: 0.5 }}
         className="text-center text-slate-600 text-sm mt-10"
       >
-        © {new Date().getFullYear()} Sentiment Analysis Dashboard — All rights reserved.
+        © {new Date().getFullYear()} Sentiment Analysis Dashboard - All rights reserved.
       </motion.p>
     </div>
   );

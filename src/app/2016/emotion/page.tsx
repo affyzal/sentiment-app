@@ -118,7 +118,7 @@ const EmotionDashboard = () => {
           >
             <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Top {e} Quotes</h2>
             <ul className="list-disc list-inside text-slate-300">
-              {mockQuotes[e].map((q, i) => (
+              {mockQuotes[e as keyof typeof mockQuotes].map((q, i) => (
                 <li key={i}>{q}</li>
               ))}
             </ul>
