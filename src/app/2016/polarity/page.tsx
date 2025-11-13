@@ -15,7 +15,7 @@ import {
 } from "recharts";
 
 const mockCandidates = ["Trump", "Biden"];
-const colors = {
+const colors: Record<string, string> = {
   positive: "#22c55e", // green
   neutral: "#9ca3af",  // gray
   negative: "#ef4444", // red

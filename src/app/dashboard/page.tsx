@@ -45,7 +45,7 @@ const DashboardPage = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 + metricIndex * 0.1 }}
-            className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-6 shadow-md hover:shadow-lg hover:border-[#64ffda] transition"
+            className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-6 shadow-md hover:shadow-lg hover:border-[#64ffda] transition hover:bg-slate-800/70"
           >
             <h2 className="text-xl font-semibold mb-2 text-[#64ffda]">{metric.name}</h2>
             <p className="text-slate-400 text-sm">{metric.summary}</p>

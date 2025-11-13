@@ -15,12 +15,13 @@ import {
 } from "recharts";
 
 const emotions = ["Joy", "Sadness", "Anger", "Surprise"];
-const colors = {
-  Joy: "#facc15",      // yellow
-  Sadness: "#3b82f6",  // blue
-  Anger: "#ef4444",    // red
-  Surprise: "#10b981", // green
+const colors: Record<string, string> = {
+  Joy: "#64ffda",
+  Sadness: "#ff648a",
+  Anger: "#ffb864",
+  Surprise: "#64b5ff",
 };
+
 
 const mockEmotionTrend = [
   { time: 1, Joy: 0.3, Sadness: 0.2, Anger: 0.1, Surprise: 0.15 },
