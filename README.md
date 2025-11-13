@@ -1,47 +1,42 @@
-Sentiment Analysis Dashboard
+Here’s your README properly formatted in Markdown for GitHub:
 
-An interactive web app that analyzes the emotional tone of U.S. presidential debates. Using natural language processing (NLP), it visualizes polarity, subjectivity, and emotional trends over time, helping users understand shifts in sentiment, tone, and intensity for each candidate.
+# Sentiment Analysis Dashboard
 
-Demo
+An interactive web app that analyzes the emotional tone of U.S. presidential debates. Using natural language processing (NLP), it visualizes **polarity**, **subjectivity**, and **emotional trends** over time, helping users understand shifts in sentiment, tone, and intensity for each candidate.
 
-The app is live on Sentiment.afzalmiah.dev
-.
+## Demo
 
-Features
+The app is live on [Sentiment.afzalmiah.dev](https://sentiment.afzalmiah.dev).
 
-Polarity Analysis – Shows the overall positivity or negativity in debate transcripts.
+## Features
 
-Subjectivity Analysis – Measures how opinionated or subjective statements are.
+- **Polarity Analysis** – Shows the overall positivity or negativity in debate transcripts.  
+- **Subjectivity Analysis** – Measures how opinionated or subjective statements are.  
+- **Emotion Visualization** – Highlights emotional tone across debates.  
+- **Interactive Timeline** – Explore sentiment trends across different debate years.  
+- **Responsive Design** – Works on desktop and mobile devices.  
 
-Emotion Visualization – Highlights emotional tone across debates.
+## Tech Stack
 
-Interactive Timeline – Explore sentiment trends across different debate years.
+- **Frontend:** Next.js, React, Tailwind CSS  
+- **Animations:** Framer Motion  
+- **Charts:** Recharts  
+- **Deployment:** Vercel  
 
-Responsive Design – Works on desktop and mobile devices.
+## Screenshots
 
-Tech Stack
+_Add screenshots here if available, e.g.:_  
 
-Frontend: Next.js, React, Tailwind CSS
+![Polarity Chart](./screenshots/polarity.png)  
+![Subjectivity Chart](./screenshots/subjectivity.png)  
+![Emotion Chart](./screenshots/emotion.png)  
 
-Animations: Framer Motion
+## Usage
 
-Charts: Recharts
-
-Deployment: Vercel
-
-Screenshots
-
-
-
-
-
-
-Usage
-
-Clone the repository:
-
-git clone https://github.com/affyzal/sentiment-app.git
-cd sentiment-app
+1. Clone the repository:  
+   ```bash
+   git clone https://github.com/affyzal/sentiment-app.git
+   cd sentiment-app
 
 
 Install dependencies:
@@ -55,7 +50,7 @@ npm run dev
 
 
 Open http://localhost:3000
- to view it in the browser.
+ in your browser to view the app.
 
 Contributing
 
