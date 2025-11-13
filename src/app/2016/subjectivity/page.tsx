@@ -1,107 +1,147 @@
 "use client";
 
-import { useMemo } from "react";
+import { motion } from "framer-motion";
 import {
-  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, LineChart, Line, CartesianGrid,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
 } from "recharts";
 
-export default function SubjectivityDashboard() {
-  // --- Mock data ---
-  const debateAverages = [
-    { year: "2016", avg: 0.42 },
-    { year: "2020", avg: 0.55 },
-    { year: "2024", avg: 0.61 },
-  ];
+const mockCandidates = ["Candidate A", "Candidate B"];
+const colors = {
+  subjective: "#f59e0b", // amber
+  neutral: "#9ca3af",    // gray
+  objective: "#3b82f6",  // blue
+};
 
-  const subjectivityDistribution = [
-    { range: "0.0–0.2", count: 12 },
-    { range: "0.2–0.4", count: 30 },
-    { range: "0.4–0.6", count: 45 },
-    { range: "0.6–0.8", count: 25 },
-    { range: "0.8–1.0", count: 8 },
-  ];
+const mockSubjectivityTrend = [
+  { time: 1, "Candidate A": 0.7, "Candidate B": 0.4 },
+  { time: 2, "Candidate A": 0.5, "Candidate B": 0.6 },
+  { time: 3, "Candidate A": 0.6, "Candidate B": 0.3 },
+  { time: 4, "Candidate A": 0.4, "Candidate B": 0.5 },
+];
 
-  const timelineData = useMemo(
-    () =>
-      Array.from({ length: 12 }).map((_, i) => ({
-        segment: `Segment ${i + 1}`,
-        subjectivity: 0.3 + Math.random() * 0.4,
-      })),
-    []
-  );
+const mockDistribution = [
+  { name: "Subjective", value: 55, color: colors.subjective },
+  { name: "Neutral", value: 25, color: colors.neutral },
+  { name: "Objective", value: 20, color: colors.objective },
+];
 
+const mockQuotes = {
+  subjective: [
+    "I feel strongly that this is the right path.",
+    "In my opinion, this will work best for everyone.",
+  ],
+  objective: [
+    "The data shows a clear trend in policy outcomes.",
+    "According to official records, this is the result.",
+  ],
+};
+
+const SubjectivityDashboard = () => {
   return (
-    <div className="w-full bg-slate-50 dark:bg-slate-900 px-6 mt-4 text-slate-900 dark:text-slate-100">
+    <div className="w-full bg-slate-900/95 text-slate-100 flex flex-col items-center p-4">
+      {/* Header */}
 
-      {/* Average Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
-        {debateAverages.map(({ year, avg }) => (
-          <div
-            key={year}
-            className="bg-slate-100 dark:bg-slate-800 rounded-xl shadow p-6 flex flex-col items-center justify-center"
-          >
-            <h2 className="text-lg font-semibold mb-2">{year} Debate</h2>
-            <p className="text-3xl font-bold text-[#64ffda]">
-              {(avg * 100).toFixed(1)}%
-            </p>
-            <p className="text-sm text-slate-500 dark:text-slate-400">
-              Avg. Subjectivity
-            </p>
-          </div>
-        ))}
+      {/* Metric Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-4 gap-6 w-full max-w-6xl mb-8">
+        <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-3 shadow-md">
+          <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Overall Subjectivity</h2>
+          <p className="text-slate-400 text-sm">Average score: <span className="text-amber-400">0.52</span></p>
+        </motion.div>
+
+        <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-3 shadow-md">
+          <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Subjective Statements</h2>
+          <p className="text-slate-400 text-sm">55 statements</p>
+        </motion.div>
+
+        <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-3 shadow-md">
+          <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Neutral Statements</h2>
+          <p className="text-slate-400 text-sm">25 statements</p>
+        </motion.div>
+
+        <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-3 shadow-md">
+          <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Objective Statements</h2>
+          <p className="text-slate-400 text-sm">20 statements</p>
+        </motion.div>
       </div>
 
-      {/* Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-        {/* Distribution Chart */}
-        <div className="bg-slate-100 dark:bg-slate-800 rounded-xl shadow p-6">
-          <h3 className="text-lg font-semibold mb-4 text-center">
-            Subjectivity Distribution
-          </h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={subjectivityDistribution}>
-              <XAxis dataKey="range" stroke="#94a3b8" />
-              <YAxis stroke="#94a3b8" />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: "#1e293b",
-                  border: "none",
-                  color: "white",
-                }}
-              />
-              <Bar dataKey="count" fill="#64ffda" radius={[4, 4, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-
-        {/* Timeline Chart */}
-        <div className="bg-slate-100 dark:bg-slate-800 rounded-xl shadow p-6">
-          <h3 className="text-lg font-semibold mb-4 text-center">
-            Subjectivity Over Time
-          </h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={timelineData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-              <XAxis dataKey="segment" stroke="#94a3b8" />
-              <YAxis domain={[0, 1]} stroke="#94a3b8" />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: "#1e293b",
-                  border: "none",
-                  color: "white",
-                }}
-              />
-              <Line
-                type="monotone"
-                dataKey="subjectivity"
-                stroke="#64ffda"
-                strokeWidth={2}
-                dot={false}
-              />
+      {/* Charts */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl w-full mb-8">
+        {/* Candidate Trend */}
+        <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-4 shadow-md">
+          <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Subjectivity Trend by Candidate</h2>
+          <ResponsiveContainer width="100%" height={250}>
+            <LineChart data={mockSubjectivityTrend}>
+              <XAxis dataKey="time" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              {mockCandidates.map((c) => (
+                <Line
+                  key={c}
+                  type="monotone"
+                  dataKey={c}
+                  stroke={c === "Candidate A" ? colors.subjective : colors.objective}
+                  strokeWidth={2}
+                />
+              ))}
             </LineChart>
           </ResponsiveContainer>
-        </div>
+        </motion.div>
+
+        {/* Distribution Pie */}
+        <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-4 shadow-md flex flex-col items-center">
+          <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Subjectivity Distribution</h2>
+          <ResponsiveContainer width="100%" height={250}>
+            <PieChart>
+              <Pie
+                data={mockDistribution}
+                dataKey="value"
+                nameKey="name"
+                innerRadius={40}
+                outerRadius={80}
+                paddingAngle={2}
+                label
+              >
+                {mockDistribution.map((entry) => (
+                  <Cell key={entry.name} fill={entry.color} />
+                ))}
+              </Pie>
+            </PieChart>
+          </ResponsiveContainer>
+        </motion.div>
+      </div>
+
+      {/* Top Quotes */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl w-full">
+        <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-4 shadow-md">
+          <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Top Subjective Quotes</h2>
+          <ul className="list-disc list-inside text-slate-300">
+            {mockQuotes.subjective.map((q, i) => (
+              <li key={i}>{q}</li>
+            ))}
+          </ul>
+        </motion.div>
+
+        <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-4 shadow-md">
+          <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Top Objective Quotes</h2>
+          <ul className="list-disc list-inside text-slate-300">
+            {mockQuotes.objective.map((q, i) => (
+              <li key={i}>{q}</li>
+            ))}
+          </ul>
+        </motion.div>
       </div>
     </div>
   );
-}
+};
+
+export default SubjectivityDashboard;
