@@ -45,9 +45,7 @@ const Home = () => {
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full">
           <motion.a
-            href="https://en.wikipedia.org/wiki/Presidential_debates_in_the_United_States"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/dashboard"
             className="flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-white bg-slate-900 text-white font-semibold transition w-full sm:w-auto max-w-xs hover:bg-transparent hover:border-[#64ffda] hover:text-[#64ffda]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
