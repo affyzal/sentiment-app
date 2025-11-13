@@ -92,7 +92,7 @@ export const Sidebar = () => {
       </div>
 
       {/* Scrollable Menu */}
-      <nav className="flex-1 flex flex-col mt-4 overflow-y-auto">
+      <nav className="flex-1 flex flex-col mt-4 overflow-y-auto sidebar-scroll">
         <Link
           href="/dashboard"
           className={`flex items-center gap-2 px-6 py-3 rounded transition ${

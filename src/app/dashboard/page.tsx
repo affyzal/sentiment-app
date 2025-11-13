@@ -1,8 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const DashboardPage = () => {
+
+  const years = ["2016", "2020", "2024"];
+
   return (
     <div className="min-h-screen w-full bg-slate-900/95 text-slate-100 flex flex-col items-center justify-center p-8">
       {/* Animated Header */}
@@ -43,6 +47,17 @@ const DashboardPage = () => {
             <p className="text-slate-400 text-sm">
               Placeholder visualization for {metric.toLowerCase()} analysis.
             </p>
+            {years.map((t) => (
+                <motion.section
+                  key={t}
+                  className="flex items-center gap-2 mt-4 text-sm text-slate-300 hover:text-[#64ffda] transition hover:underline hover:cursor-pointer"
+                >
+                  <Link href={`/${t}/${metric.toLowerCase().replace(" ", "-")}`}>
+                    <span className="text-[#64ffda]">▹</span> {t}
+                  </Link>
+                </motion.section>
+              ))
+            }
           </motion.div>
         ))}
       </div>

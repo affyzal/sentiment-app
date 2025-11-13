@@ -31,10 +31,7 @@ export default function SubjectivityDashboard() {
   );
 
   return (
-    <div className="min-h-screen w-full bg-slate-50 dark:bg-slate-900 px-6 py-10 text-slate-900 dark:text-slate-100">
-      <h1 className="text-3xl font-bold mb-6 text-center">
-        Subjectivity Analysis
-      </h1>
+    <div className="w-full bg-slate-50 dark:bg-slate-900 px-6 mt-4 text-slate-900 dark:text-slate-100">
 
       {/* Average Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
