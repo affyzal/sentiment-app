@@ -1,5 +1,3 @@
-Here’s your README properly formatted in Markdown for GitHub:
-
 # Sentiment Analysis Dashboard
 
 An interactive web app that analyzes the emotional tone of U.S. presidential debates. Using natural language processing (NLP), it visualizes **polarity**, **subjectivity**, and **emotional trends** over time, helping users understand shifts in sentiment, tone, and intensity for each candidate.
@@ -10,11 +8,11 @@ The app is live on [Sentiment.afzalmiah.dev](https://sentiment.afzalmiah.dev).
 
 ## Features
 
-- **Polarity Analysis** – Shows the overall positivity or negativity in debate transcripts.  
-- **Subjectivity Analysis** – Measures how opinionated or subjective statements are.  
-- **Emotion Visualization** – Highlights emotional tone across debates.  
-- **Interactive Timeline** – Explore sentiment trends across different debate years.  
-- **Responsive Design** – Works on desktop and mobile devices.  
+- **Polarity Analysis** - Shows the overall positivity or negativity in debate transcripts.  
+- **Subjectivity Analysis** - Measures how opinionated or subjective statements are.  
+- **Emotion Visualization** - Highlights emotional tone across debates.  
+- **Interactive Timeline** - Explore sentiment trends across different debate years.  
+- **Responsive Design** - Works on desktop and mobile devices.  
 
 ## Tech Stack
 
