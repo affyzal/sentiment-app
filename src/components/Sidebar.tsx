@@ -164,13 +164,25 @@ export const Sidebar = () => {
           className="inline-flex items-center justify-center"
           style={{ lineHeight: 0, transformOrigin: "center" }}
         >
-          <Image
-            src="/logo-transparent.svg"
-            alt="Logo"
-            width={620}
-            height={100}
-            className="w-40 h-40 ml-2 rounded-sm"
-          />
+          {  /***
+             *  <Image
+                  src="/logo-transparent.svg"
+                  alt="Logo"
+                  width={620}
+                  height={100}
+                  className="w-40 h-40 ml-2 rounded-sm"
+                />
+            */
+          }
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="mt-2 px-2 py-1 bg-slate-800/50 rounded text-xs text-[#64ffda] border border-slate-700"
+          >
+            <span className="animate-pulse">🚧 Site in Development</span>
+          </motion.div>
+
         </motion.a>
       </div>
         <SidebarContent />
