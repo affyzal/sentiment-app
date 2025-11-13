@@ -1,22 +1,35 @@
 "use client";
 
 import { ChevronDownIcon, HomeIcon } from "@heroicons/react/24/solid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 
 interface SubMenuProps {
   title: string;
+  year: string;
   items: string[];
 }
 
-function SubMenu({ title, items }: SubMenuProps) {
+const SubMenu = ({ title, year, items }: SubMenuProps) => {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
+
+  // Open submenu automatically if current path matches this year
+  useEffect(() => {
+    if (pathname.includes(`/${year}/`)) {
+      setOpen(true);
+    }
+  }, [pathname, year]);
 
   return (
     <div className="flex flex-col">
       <button
-        className="flex items-center justify-between w-full px-6 py-3 hover:bg-slate-800/50 transition rounded text-left hover:text-[#64ffda]"
+        className={`flex items-center justify-between w-full px-6 py-3 transition rounded text-left ${
+          open ? "text-[#64ffda]" : "hover:text-[#64ffda] hover:bg-slate-800/50"
+        }`}
         onClick={() => setOpen(!open)}
       >
         {title}
@@ -27,23 +40,34 @@ function SubMenu({ title, items }: SubMenuProps) {
 
       {open && (
         <div className="flex flex-col ml-6">
-          {items.map((item) => (
-            <a
-              key={item}
-              href="#"
-              className="px-4 py-2 hover:bg-slate-800/50 rounded transition hover:text-[#64ffda]"
-            >
-              {item}
-            </a>
-          ))}
+          {items.map((item) => {
+            const slug = item.toLowerCase().replace(/\s+/g, "-");
+            const href = `/${year}/${slug}`;
+            const isActive = pathname === href;
+
+            return (
+              <Link
+                key={item}
+                href={href}
+                className={`px-4 py-2 rounded transition ${
+                  isActive
+                    ? "bg-[#64ffda]/10 text-[#64ffda] font-semibold"
+                    : "hover:bg-slate-800/50 hover:text-[#64ffda]"
+                }`}
+              >
+                {item}
+              </Link>
+            );
+          })}
         </div>
       )}
     </div>
   );
-}
+};
 
-export default function Sidebar() {
-  const years = ["2016 Debate", "2020 Debate", "2024 Debate"];
+export const Sidebar = () => {
+  const pathname = usePathname();
+  const years = ["2016", "2020", "2024"];
   const analysisItems = ["Polarity", "Subjectivity", "Emotion", "Sentiment Score"];
 
   return (
@@ -69,19 +93,30 @@ export default function Sidebar() {
 
       {/* Scrollable Menu */}
       <nav className="flex-1 flex flex-col mt-4 overflow-y-auto">
-        <a
-          href="#"
-          className="flex items-center gap-2 px-6 py-3 hover:bg-slate-800/50 transition rounded hover:text-[#64ffda]"
+        <Link
+          href="/dashboard"
+          className={`flex items-center gap-2 px-6 py-3 rounded transition ${
+            pathname === "/dashboard"
+              ? "bg-[#64ffda]/10 text-[#64ffda] font-semibold"
+              : "hover:bg-slate-800/50 hover:text-[#64ffda]"
+          }`}
         >
           <HomeIcon className="w-5 h-5" />
           Dashboard
-        </a>
+        </Link>
 
         {/* Year + Sentiment Analysis */}
         {years.map((year) => (
-          <SubMenu key={year} title={year} items={analysisItems} />
+          <SubMenu
+            key={year}
+            title={`${year} Debate`}
+            year={year}
+            items={analysisItems}
+          />
         ))}
       </nav>
     </aside>
   );
-}
+};
+
+export default Sidebar;
