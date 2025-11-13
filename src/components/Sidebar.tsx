@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { ChevronDownIcon, HomeIcon } from "@heroicons/react/24/solid";
+import { ChevronDownIcon, HomeIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { JSX, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,16 +22,12 @@ const analysisIcons: Record<string, JSX.Element> = {
   "Sentiment Score": <FaChartLine className="w-4 h-4" />,
 };
 
-
 const SubMenu = ({ title, year, items }: SubMenuProps) => {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  // Open submenu automatically if current path matches this year
   useEffect(() => {
-    if (pathname.includes(`/${year}/`)) {
-      setOpen(true);
-    }
+    if (pathname.includes(`/${year}/`)) setOpen(true);
   }, [pathname, year]);
 
   return (
@@ -42,10 +38,9 @@ const SubMenu = ({ title, year, items }: SubMenuProps) => {
         }`}
         onClick={() => setOpen(!open)}
       >
-        <FaRegCalendarAlt className="w-4 h-4" />{title}
-        <ChevronDownIcon
-          className={`w-4 h-4 transition-transform ${open ? "rotate-180" : ""}`}
-        />
+        <FaRegCalendarAlt className="w-4 h-4" />
+        {title}
+        <ChevronDownIcon className={`w-4 h-4 transition-transform ${open ? "rotate-180" : ""}`} />
       </button>
 
       {open && (
@@ -76,115 +71,122 @@ const SubMenu = ({ title, year, items }: SubMenuProps) => {
   );
 };
 
-export const Sidebar = () => {
+const SidebarContent = () => {
   const pathname = usePathname();
   const years = ["2016", "2020", "2024"];
   const analysisItems = ["Polarity", "Subjectivity", "Emotion", "Sentiment Score"];
 
   return (
-    <aside className="fixed top-0 left-0 w-64 h-screen bg-slate-900/95 backdrop-blur border-r border-slate-800 text-white flex flex-col shadow-lg">
-      {/* Brand / Logo */}
-      <div className="h-16 flex items-center justify-center font-bold text-xl border-b border-slate-800">
-        <motion.a
-          href="/"
-          whileTap={{ scale: 0.95 }}
-          transition={{ type: "spring", stiffness: 260, damping: 16 }}
-          className="inline-flex items-center justify-center"
-          style={{ lineHeight: 0, transformOrigin: "center" }}
-        >
-          <Image
-            src="/logo-transparent.svg"
-            alt="Logo"
-            width={620}
-            height={100}
-            className="w-40 h-40 ml-2 rounded-sm"
-          />
-        </motion.a>
+    <nav className="flex-1 flex flex-col mt-4 overflow-y-auto sidebar-scroll">
+      <Link
+        href="/dashboard"
+        className={`flex items-center gap-2 px-6 py-3 rounded transition ${
+          pathname === "/dashboard"
+            ? "bg-[#64ffda]/10 text-[#64ffda] font-semibold"
+            : "hover:bg-slate-800/50 hover:text-[#64ffda]"
+        }`}
+      >
+        <HomeIcon className="w-5 h-5" />
+        Dashboard
+      </Link>
+
+      <div className="flex items-center my-2 px-6">
+        <div className="flex-1 h-px bg-slate-700 rounded-l"></div>
+        <div className="flex-1 h-px bg-slate-700 rounded-r"></div>
       </div>
 
-      {/* Scrollable Menu */}
-      <nav className="flex-1 flex flex-col mt-4 overflow-y-auto sidebar-scroll">
+      <div className="px-6 mt-2">
+        <p className="text-slate-400 uppercase text-xs mb-1 tracking-wide">Sentiment Analysis</p>
+      </div>
+
+      {years.map((year) => (
+        <SubMenu key={year} title={`${year} Debate`} year={year} items={analysisItems} />
+      ))}
+
+      <div className="flex items-center my-2 px-6">
+        <div className="flex-1 h-px bg-slate-700 rounded-l"></div>
+        <div className="flex-1 h-px bg-slate-700 rounded-r"></div>
+      </div>
+
+      <div className="px-6 mt-2">
+        <p className="text-slate-400 uppercase text-xs mb-1 tracking-wide">Supporting Pages</p>
         <Link
-          href="/dashboard"
-          className={`flex items-center gap-2 px-6 py-3 rounded transition ${
-            pathname === "/dashboard"
+          href="/datasets"
+          className={`flex items-center gap-2 px-4 py-2 rounded transition ${
+            pathname === "/datasets"
               ? "bg-[#64ffda]/10 text-[#64ffda] font-semibold"
               : "hover:bg-slate-800/50 hover:text-[#64ffda]"
           }`}
         >
-          <HomeIcon className="w-5 h-5" />
-          Dashboard
+          <FaDatabase className="w-4 h-4" />
+          Datasets
         </Link>
-        
-        <div className="flex items-center my-2 px-6">
-          <div className="flex-1 h-px bg-slate-700 rounded-l"></div>
-          <div className="flex-1 h-px bg-slate-700 rounded-r"></div>
-        </div>
-        <div className="px-6 mt-2">
-          <p className="text-slate-400 uppercase text-xs mb-1 tracking-wide">
-            Sentiment Analysis
-          </p>
-        </div>
-        
-        
+        <Link
+          href="/methodologies"
+          className={`flex items-center gap-2 px-4 py-2 rounded transition ${
+            pathname === "/methodologies"
+              ? "bg-[#64ffda]/10 text-[#64ffda] font-semibold"
+              : "hover:bg-slate-800/50 hover:text-[#64ffda]"
+          }`}
+        >
+          <FaProjectDiagram className="w-4 h-4" />
+          Methodologies
+        </Link>
+        <Link
+          href="/about"
+          className={`flex items-center gap-2 px-4 py-2 rounded transition ${
+            pathname === "/about"
+              ? "bg-[#64ffda]/10 text-[#64ffda] font-semibold"
+              : "hover:bg-slate-800/50 hover:text-[#64ffda]"
+          }`}
+        >
+          <FaInfoCircle className="w-4 h-4" />
+          About
+        </Link>
+      </div>
+    </nav>
+  );
+};
 
-        {/* Year + Sentiment Analysis */}
-        {years.map((year) => (
-          <SubMenu
-            key={year}
-            title={`${year} Debate`}
-            year={year}
-            items={analysisItems}
-          />
-        ))}
-        <div className="flex items-center my-2 px-6">
-          <div className="flex-1 h-px bg-slate-700 rounded-l"></div>
-          <div className="flex-1 h-px bg-slate-700 rounded-r"></div>
-        </div>
-  
-        <div className="px-6 mt-2">
-          <p className="text-slate-400 uppercase text-xs mb-1 tracking-wide">
-            Supporting Pages
-          </p>
-          <Link
-            href="/datasets"
-            className={`flex items-center gap-2 px-4 py-2 rounded transition ${
-              pathname === "/datasets"
-                ? "bg-[#64ffda]/10 text-[#64ffda] font-semibold"
-                : "hover:bg-slate-800/50 hover:text-[#64ffda]"
-            }`}
-          >
-            <FaDatabase className="w-4 h-4" />
-            Datasets
-          </Link>
-          <Link
-            href="/methodologies"
-            className={`flex items-center gap-2 px-4 py-2 rounded transition ${
-              pathname === "/methodologies"
-                ? "bg-[#64ffda]/10 text-[#64ffda] font-semibold"
-                : "hover:bg-slate-800/50 hover:text-[#64ffda]"
-            }`}
-          >
-            <FaProjectDiagram className="w-4 h-4" />
-            Methodologies
-          </Link>
-          <Link
-            href="/about"
-            className={`flex items-center gap-2 px-4 py-2 rounded transition ${
-              pathname === "/about"
-                ? "bg-[#64ffda]/10 text-[#64ffda] font-semibold"
-                : "hover:bg-slate-800/50 hover:text-[#64ffda]"
-            }`}
-          >
-            <FaInfoCircle className="w-4 h-4" />
-            About
-          </Link>
-        </div>
+export const Sidebar = () => {
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-      </nav>
-      
-      <SidebarFooter />
-    </aside>
+  return (
+    <>
+      {/* Desktop Sidebar */}
+      <aside className="hidden md:flex fixed top-0 left-0 w-64 h-screen bg-slate-900/95 backdrop-blur border-r border-slate-800 text-white flex flex-col shadow-lg">
+        <div className="h-16 flex items-center justify-center font-bold text-xl border-b border-slate-800">
+          <Image src="/logo-transparent.svg" alt="Logo" width={620} height={100} className="w-40 h-40 ml-2 rounded-sm" />
+        </div>
+        <SidebarContent />
+        <SidebarFooter />
+      </aside>
+
+      {/* Mobile Navbar */}
+      <div className="md:hidden fixed top-0 left-0 right-0 bg-slate-900/95 backdrop-blur z-50 flex items-center justify-between px-4 h-16 border-b border-slate-800">
+        <Image src="/logo-transparent.svg" alt="Logo" width={40} height={40} className="w-10 h-10 rounded-sm" />
+        <button onClick={() => setMobileOpen(!mobileOpen)}>
+          {mobileOpen ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
+        </button>
+      </div>
+
+      {/* Mobile Sidebar Overlay */}
+      {mobileOpen && (
+        <motion.div
+          initial={{ x: "-100%" }}
+          animate={{ x: 0 }}
+          exit={{ x: "-100%" }}
+          transition={{ type: "spring", stiffness: 260, damping: 30 }}
+          className="md:hidden fixed top-0 left-0 bottom-0 w-64 bg-slate-900/95 backdrop-blur z-40 shadow-lg flex flex-col"
+        >
+          <div className="h-16 flex items-center justify-center font-bold text-xl border-b border-slate-800">
+            <Image src="/logo-transparent.svg" alt="Logo" width={620} height={100} className="w-40 h-40 ml-2 rounded-sm" />
+          </div>
+          <SidebarContent />
+          <SidebarFooter />
+        </motion.div>
+      )}
+    </>
   );
 };
 
