@@ -4,7 +4,7 @@ An interactive web app that analyzes the emotional tone of U.S. presidential deb
 
 ## Demo
 
-The app is live on [Sentiment.afzalmiah.dev](https://sentiment.afzalmiah.dev).
+The app is live on [sentiment.afzalmiah.dev](https://sentiment.afzalmiah.dev).
 
 ## Features
 
@@ -21,9 +21,7 @@ The app is live on [Sentiment.afzalmiah.dev](https://sentiment.afzalmiah.dev).
 - **Charts:** Recharts  
 - **Deployment:** Vercel  
 
-## Screenshots
-
-_Add screenshots here if available, e.g.:_  
+## Screenshots 
 
 ![Polarity Chart](./screenshots/polarity.png)  
 ![Subjectivity Chart](./screenshots/subjectivity.png)  
