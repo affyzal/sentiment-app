@@ -1,18 +1,27 @@
 "use client";
 
 import { ChevronDownIcon, HomeIcon } from "@heroicons/react/24/solid";
-import { useEffect, useState } from "react";
+import { JSX, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import SidebarFooter from "./SidebarFooter";
+import { FaSmile, FaCommentDots, FaHeart, FaChartLine, FaRegCalendarAlt, FaDatabase, FaProjectDiagram, FaInfoCircle } from "react-icons/fa";
 
 interface SubMenuProps {
   title: string;
   year: string;
   items: string[];
 }
+
+const analysisIcons: Record<string, JSX.Element> = {
+  Polarity: <FaSmile className="w-4 h-4" />,
+  Subjectivity: <FaCommentDots className="w-4 h-4" />,
+  Emotion: <FaHeart className="w-4 h-4" />,
+  "Sentiment Score": <FaChartLine className="w-4 h-4" />,
+};
+
 
 const SubMenu = ({ title, year, items }: SubMenuProps) => {
   const pathname = usePathname();
@@ -33,7 +42,7 @@ const SubMenu = ({ title, year, items }: SubMenuProps) => {
         }`}
         onClick={() => setOpen(!open)}
       >
-        {title}
+        <FaRegCalendarAlt className="w-4 h-4" />{title}
         <ChevronDownIcon
           className={`w-4 h-4 transition-transform ${open ? "rotate-180" : ""}`}
         />
@@ -50,13 +59,14 @@ const SubMenu = ({ title, year, items }: SubMenuProps) => {
               <Link
                 key={item}
                 href={href}
-                className={`px-4 py-2 rounded transition ${
+                className={`flex items-center gap-2 px-4 py-2 rounded transition ${
                   isActive
                     ? "bg-[#64ffda]/10 text-[#64ffda] font-semibold"
                     : "hover:bg-slate-800/50 hover:text-[#64ffda]"
                 }`}
               >
-                {item}
+                {analysisIcons[item]}
+                <span>{item}</span>
               </Link>
             );
           })}
@@ -105,6 +115,18 @@ export const Sidebar = () => {
           <HomeIcon className="w-5 h-5" />
           Dashboard
         </Link>
+        
+        <div className="flex items-center my-2 px-6">
+          <div className="flex-1 h-px bg-slate-700 rounded-l"></div>
+          <div className="flex-1 h-px bg-slate-700 rounded-r"></div>
+        </div>
+        <div className="px-6 mt-2">
+          <p className="text-slate-400 uppercase text-xs mb-1 tracking-wide">
+            Sentiment Analysis
+          </p>
+        </div>
+        
+        
 
         {/* Year + Sentiment Analysis */}
         {years.map((year) => (
@@ -115,7 +137,52 @@ export const Sidebar = () => {
             items={analysisItems}
           />
         ))}
+        <div className="flex items-center my-2 px-6">
+          <div className="flex-1 h-px bg-slate-700 rounded-l"></div>
+          <div className="flex-1 h-px bg-slate-700 rounded-r"></div>
+        </div>
+  
+        <div className="px-6 mt-2">
+          <p className="text-slate-400 uppercase text-xs mb-1 tracking-wide">
+            Supporting Pages
+          </p>
+          <Link
+            href="/datasets"
+            className={`flex items-center gap-2 px-4 py-2 rounded transition ${
+              pathname === "/datasets"
+                ? "bg-[#64ffda]/10 text-[#64ffda] font-semibold"
+                : "hover:bg-slate-800/50 hover:text-[#64ffda]"
+            }`}
+          >
+            <FaDatabase className="w-4 h-4" />
+            Datasets
+          </Link>
+          <Link
+            href="/methodologies"
+            className={`flex items-center gap-2 px-4 py-2 rounded transition ${
+              pathname === "/methodologies"
+                ? "bg-[#64ffda]/10 text-[#64ffda] font-semibold"
+                : "hover:bg-slate-800/50 hover:text-[#64ffda]"
+            }`}
+          >
+            <FaProjectDiagram className="w-4 h-4" />
+            Methodologies
+          </Link>
+          <Link
+            href="/about"
+            className={`flex items-center gap-2 px-4 py-2 rounded transition ${
+              pathname === "/about"
+                ? "bg-[#64ffda]/10 text-[#64ffda] font-semibold"
+                : "hover:bg-slate-800/50 hover:text-[#64ffda]"
+            }`}
+          >
+            <FaInfoCircle className="w-4 h-4" />
+            About
+          </Link>
+        </div>
+
       </nav>
+      
       <SidebarFooter />
     </aside>
   );
