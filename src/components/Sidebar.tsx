@@ -155,16 +155,33 @@ export const Sidebar = () => {
     <>
       {/* Desktop Sidebar */}
       <aside className="hidden md:flex fixed top-0 left-0 w-64 h-screen bg-slate-900/95 backdrop-blur border-r border-slate-800 text-white flex flex-col shadow-lg">
-        <div className="h-16 flex items-center justify-center font-bold text-xl border-b border-slate-800">
-          <Image src="/logo-transparent.svg" alt="Logo" width={620} height={100} className="w-40 h-40 ml-2 rounded-sm" />
-        </div>
+      {/* Brand / Logo */}
+      <div className="h-16 flex items-center justify-center font-bold text-xl border-b border-slate-800">
+        <motion.a
+          href="/"
+          whileTap={{ scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 260, damping: 16 }}
+          className="inline-flex items-center justify-center"
+          style={{ lineHeight: 0, transformOrigin: "center" }}
+        >
+          <Image
+            src="/logo-transparent.svg"
+            alt="Logo"
+            width={620}
+            height={100}
+            className="w-40 h-40 ml-2 rounded-sm"
+          />
+        </motion.a>
+      </div>
         <SidebarContent />
         <SidebarFooter />
       </aside>
 
       {/* Mobile Navbar */}
       <div className="md:hidden fixed top-0 left-0 right-0 bg-slate-900/95 backdrop-blur z-50 flex items-center justify-between px-4 h-16 border-b border-slate-800">
-        <Image src="/logo-transparent.svg" alt="Logo" width={40} height={40} className="w-10 h-10 rounded-sm" />
+        <Link href="/">
+          <Image src="/logo-transparent.svg" alt="Logo" width={40} height={40} className="w-30 h-30 rounded-sm" />
+        </Link>
         <button onClick={() => setMobileOpen(!mobileOpen)}>
           {mobileOpen ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
         </button>
