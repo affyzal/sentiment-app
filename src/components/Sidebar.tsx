@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
+import SidebarFooter from "./SidebarFooter";
 
 interface SubMenuProps {
   title: string;
@@ -115,6 +116,7 @@ export const Sidebar = () => {
           />
         ))}
       </nav>
+      <SidebarFooter />
     </aside>
   );
 };
