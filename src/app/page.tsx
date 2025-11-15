@@ -29,7 +29,7 @@ const Home = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.6 }}
         >
-          Presidential Debate Sentiment Analysis
+          US Presidential Debate Sentiment Analysis
         </motion.h1>
 
         {/* Hero Subtitle */}
@@ -39,7 +39,7 @@ const Home = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.6 }}
         >
-          Explore public sentiment and emotions during presidential debates. Analyze polarity, subjectivity, and sentiment scores for the 2016, 2020, and 2024 debates using our interactive dashboard.
+          Explore sentiment and emotions during the US presidential debates. Analyze polarity, subjectivity, and sentiment scores for the 2016, 2020, and 2024 debates using our interactive dashboard.
         </motion.p>
 
         {/* CTA Buttons */}

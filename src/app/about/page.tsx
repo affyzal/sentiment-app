@@ -28,7 +28,7 @@ export default function AboutPage() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="mt-8 bg-slate-900/70 border border-slate-800 rounded-2xl p-6"
+        className="mt-8 bg-slate-800/40 border border-slate-800 rounded-2xl p-6"
       >
         <h2 className="text-xl font-semibold text-[#64ffda] mb-3">
           Project Overview
@@ -50,7 +50,7 @@ export default function AboutPage() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="mt-8 bg-slate-900/70 border border-slate-800 rounded-2xl p-6"
+        className="mt-8 bg-slate-800/40 border border-slate-800 rounded-2xl p-6"
       >
         <h2 className="text-xl font-semibold text-[#64ffda] mb-3">Tech Stack</h2>
         <ul className="list-disc list-inside text-slate-300 space-y-1">
@@ -67,7 +67,7 @@ export default function AboutPage() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="mt-8 bg-slate-900/70 border border-slate-800 rounded-2xl p-6"
+        className="mt-8 bg-slate-800/40 border border-slate-800 rounded-2xl p-6"
       >
         <h2 className="text-xl font-semibold text-[#64ffda] mb-3">Author</h2>
         <p className="text-slate-300 mb-4">

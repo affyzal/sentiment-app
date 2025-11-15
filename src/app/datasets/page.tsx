@@ -50,7 +50,7 @@ export default function DatasetsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 * index }}
-            className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 shadow-md hover:bg-slate-800/70 transition hover:shadow-lg hover:border-[#64ffda] transition"
+            className="bg-slate-800/40 border border-slate-800 rounded-2xl p-5 shadow-md hover:bg-slate-800/70 transition hover:shadow-lg hover:border-[#64ffda] transition"
           >
             <h2 className="text-xl font-semibold mb-1 text-[#64ffda]">
               {dataset.title}

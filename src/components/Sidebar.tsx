@@ -180,7 +180,9 @@ export const Sidebar = () => {
             transition={{ delay: 0.5 }}
             className="mt-2 px-2 py-1 bg-slate-800/50 rounded text-xs text-[#64ffda] border border-slate-700"
           >
-            <span className="animate-pulse">🚧 Site in Development</span>
+            <span className="animate-pulse">
+              🚧 Site in Development — All charts and metrics are for demonstration only.
+            </span>          
           </motion.div>
 
         </motion.a>
