@@ -39,7 +39,9 @@ interface DistributionEntry {
   name: string;
   value: number;
   color: string;
+  [key: string]: string | number;
 }
+
 
 const mockDistribution : DistributionEntry[] = [
   { name: "Subjective", value: 55, color: colors.subjective },
