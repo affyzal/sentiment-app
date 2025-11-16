@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState } from "react";
 import {
   LineChart,
   Line,
@@ -14,7 +15,7 @@ import {
   Cell,
 } from "recharts";
 
-const emotions = ["Joy", "Sadness", "Anger", "Surprise"];
+const emotions: string[] = ["Joy", "Sadness", "Anger", "Surprise"];
 const colors: Record<string, string> = {
   Joy: "#64ffda",
   Sadness: "#ff648a",
@@ -22,32 +23,75 @@ const colors: Record<string, string> = {
   Surprise: "#64b5ff",
 };
 
+interface EmotionTrendEntry {
+  time: number;
+  Joy: number;
+  Sadness: number;
+  Anger: number;
+  Surprise: number;
+}
 
-const mockEmotionTrend = [
+const mockEmotionTrend : EmotionTrendEntry[] = [
   { time: 1, Joy: 0.3, Sadness: 0.2, Anger: 0.1, Surprise: 0.15 },
   { time: 2, Joy: 0.25, Sadness: 0.3, Anger: 0.2, Surprise: 0.1 },
   { time: 3, Joy: 0.35, Sadness: 0.15, Anger: 0.25, Surprise: 0.2 },
   { time: 4, Joy: 0.4, Sadness: 0.1, Anger: 0.3, Surprise: 0.25 },
 ];
 
-const mockDistribution = [
+interface DistributionEntry {
+  name: string;
+  value: number;
+  color: string;
+}
+
+const mockDistribution: DistributionEntry[] = [
   { name: "Joy", value: 30, color: colors.Joy },
   { name: "Sadness", value: 20, color: colors.Sadness },
   { name: "Anger", value: 25, color: colors.Anger },
   { name: "Surprise", value: 25, color: colors.Surprise },
 ];
 
-const mockQuotes = {
+interface Quotes {
+  Joy: string[];
+  Sadness: string[];
+  Anger: string[];
+  Surprise: string[];
+}
+
+const mockQuotes : Quotes = {
   Joy: ["I am thrilled by these results!", "This makes me really happy."],
   Sadness: ["This is quite disappointing.", "I feel upset about this."],
   Anger: ["I am frustrated by the outcome!", "This is unacceptable!"],
   Surprise: ["I didn't expect this at all!", "This is quite surprising."],
 };
 
+const candidates: string[] = ["Donald Trump", "Hillary Clinton", "Trump vs Clinton"];
+
 const EmotionDashboard = () => {
+  const [selectedCandidate, setSelectedCandidate] = useState<string>(candidates[0]);
+  
   return (
     <div className="min-h-screen w-full bg-slate-900/95 text-slate-100 flex flex-col items-center p-4">
       {/* Header */}
+
+      <div className="flex w-full justify-start gap-3 mb-6">     
+      {
+        candidates.map((c) => (
+          <button
+            key={c}
+            onClick={() => setSelectedCandidate(c)}
+            className={`px-4 py-2 rounded-md text-sm transition border cursor-pointer
+              ${
+                selectedCandidate === c
+                  ? "border-[#64ffda] bg-[#64ffda]/10 text-[#64ffda]"
+                  : "border-slate-700 hover:border-[#64ffda] hover:text-[#64ffda]"
+              }`}
+          >
+            {c}
+          </button>
+        ))
+      }
+      </div>
 
       {/* Metric Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-6 w-full max-w-6xl mb-8">

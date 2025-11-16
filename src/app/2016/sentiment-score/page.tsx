@@ -13,7 +13,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Skeleton from "@/components/Skeleton";
 
-const mockData = [
+const mockData: { time: string; score: number }[] = [
   { time: "00:00", score: 0.1 },
   { time: "05:00", score: -0.2 },
   { time: "10:00", score: 0.3 },
@@ -22,11 +22,11 @@ const mockData = [
   { time: "25:00", score: 0.05 },
 ];
 
-const candidates = ["Donald Trump", "Hillary Clinton"];
+const candidates: string[] = ["Donald Trump", "Hillary Clinton", "Trump vs Clinton"];
 
 export default function SentimentScore2016() {
-  const [selectedCandidate, setSelectedCandidate] = useState("Donald Trump");
-  const [loading, setLoading] = useState(true);
+  const [selectedCandidate, setSelectedCandidate] = useState<string>(candidates[0]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const t = setTimeout(() => setLoading(false), 800);
@@ -34,21 +34,22 @@ export default function SentimentScore2016() {
   }, []);
 
   return (
-    <div className="p-6 relative">
+    <div className="p-4 relative min-h-screen bg-slate-900/95 text-slate-100">
 
       {/* Candidate Toggle */}
       <div className="flex gap-3 mb-6">
-        { loading ? (
+        {loading ? (
           <>
-            <Skeleton width="100px" height="36px" className="rounded-md" />
-            <Skeleton width="100px" height="36px" className="rounded-md" />
+            <Skeleton width="120px" height="36px" className="rounded-md" />
+            <Skeleton width="120px" height="36px" className="rounded-md" />
+            <Skeleton width="120px" height="36px" className="rounded-md" />
           </>
         ) : (
           candidates.map((c) => (
             <button
               key={c}
               onClick={() => setSelectedCandidate(c)}
-              className={`px-4 py-2 rounded-md text-sm transition border
+              className={`px-4 py-2 rounded-md text-sm transition border cursor-pointer
                 ${
                   selectedCandidate === c
                     ? "border-[#64ffda] bg-[#64ffda]/10 text-[#64ffda]"
@@ -71,23 +72,26 @@ export default function SentimentScore2016() {
           </>
         ) : (
           <>
-            <div className="p-4 rounded-lg border border-slate-800 bg-slate-800/40 ">
+            {/* Card 1 */}
+            <div className="p-4 rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur shadow-md mb-2">
               <p className="text-xs text-[#64ffda]">Avg Sentiment Score</p>
-              <p className="text-xl font-bold text-white">
+              <p className="text-xl font-bold">
                 {selectedCandidate === "Donald Trump" ? "0.12" : "0.25"}
               </p>
             </div>
 
-            <div className="p-4 bg-slate-800/40 rounded-lg border border-slate-800">
+            {/* Card 2 */}
+            <div className="p-4 rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur shadow-md mb-2">
               <p className="text-xs text-[#64ffda]">Peak Positive</p>
-              <p className="text-xl font-bold text-white">
+              <p className="text-xl font-bold">
                 {selectedCandidate === "Donald Trump" ? "0.48" : "0.61"}
               </p>
             </div>
 
-            <div className="p-4 bg-slate-800/40 rounded-lg border border-slate-800">
+            {/* Card 3 */}
+            <div className="p-4 rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur shadow-md mb-2">
               <p className="text-xs text-[#64ffda]">Peak Negative</p>
-              <p className="text-xl font-bold text-white">
+              <p className="text-xl font-bold">
                 {selectedCandidate === "Donald Trump" ? "-0.32" : "-0.27"}
               </p>
             </div>
@@ -96,7 +100,7 @@ export default function SentimentScore2016() {
       </div>
 
       {/* Chart */}
-      <div className="w-full h-80 bg-slate-800/40 rounded-lg border border-slate-800 p-4">
+      <div className="w-full h-80 rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur shadow-md p-4">
         {loading ? (
           <Skeleton height="100%" />
         ) : (
@@ -124,8 +128,8 @@ export default function SentimentScore2016() {
         )}
       </div>
 
-      {/* Placeholder notes */}
-      <div className="mt-6 p-4 bg-slate-800/40 border border-slate-800 rounded-lg">
+      {/* Notes */}
+      <div className="mt-6 p-4 rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur shadow-md">
         <p className="text-slate-400 text-sm">
           This is placeholder data. Real sentiment scoring will be added once
           transcript processing and NLP pipelines are fully implemented.

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import {
   LineChart,
   Line,
@@ -45,10 +46,38 @@ const mockQuotes = {
   ],
 };
 
+const candidates = ["Donald Trump", "Hillary Clinton", "Trump vs Clinton"];
+
 const PolarityDashboard = () => {
+    const [selectedCandidate, setSelectedCandidate] = useState(candidates[0]);
+    const [loading, setLoading] = useState(true);
+  
+    useEffect(() => {
+      const t = setTimeout(() => setLoading(false), 800);
+      return () => clearTimeout(t);
+    }, []);
+    
   return (
     <div className="w-full bg-slate-900/95 text-slate-100 flex flex-col items-center p-4">
       {/* Header */}
+      <div className="flex w-full justify-start gap-3 mb-6">     
+      {
+        candidates.map((c) => (
+          <button
+            key={c}
+            onClick={() => setSelectedCandidate(c)}
+            className={`px-4 py-2 rounded-md text-sm transition border cursor-pointer
+              ${
+                selectedCandidate === c
+                  ? "border-[#64ffda] bg-[#64ffda]/10 text-[#64ffda]"
+                  : "border-slate-700 hover:border-[#64ffda] hover:text-[#64ffda]"
+              }`}
+          >
+            {c}
+          </button>
+        ))
+      }
+      </div>
 
       {/* Metric Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-6 w-full max-w-6xl mb-8">
