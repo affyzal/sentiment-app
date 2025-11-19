@@ -19,10 +19,10 @@ import {
 
 const emotions: string[] = ["Joy", "Sadness", "Anger", "Surprise"];
 const colors: Record<string, string> = {
-  Joy: "#64ffda",
-  Sadness: "#ff648a",
+  Joy: "#DBA6FF",
+  Sadness: "#FF9F9F",
   Anger: "#ffb864",
-  Surprise: "#64b5ff",
+  Surprise: "#9BC2FF",
 };
 
 interface EmotionTrendEntry {
@@ -143,9 +143,15 @@ const EmotionDashboard = () => {
             <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Emotion Trend Over Time</h2>
             <ResponsiveContainer width="100%" height={250}>
               <LineChart data={mockEmotionTrend}>
-                <XAxis dataKey="time" />
-                <YAxis />
-                <Tooltip />
+                <XAxis dataKey="time" stroke="#94a3b8"/>
+                <YAxis stroke="#94a3b8"/>
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "#1e293b",
+                    border: "none",
+                    color: "white",
+                  }} 
+                />
                 <Legend />
                 {emotions.map((e) => (
                   <Line
@@ -182,15 +188,7 @@ const EmotionDashboard = () => {
                   {mockDistribution.map((entry) => (
                     <Cell key={entry.name} fill={entry.color} />
                   ))}
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: "#0f172a",
-                      border: "1px solid #334155",
-                    }}
-                    labelStyle={{ color: "#64ffda" }}
-                    itemStyle={{ color: "#ffffff" }} // <- value text
-                  />
-
+                  <Legend />
                 </Pie>
               </PieChart>
             </ResponsiveContainer>
@@ -229,7 +227,7 @@ const EmotionDashboard = () => {
       </div>
       <div className="mt-6 w-full p-4 rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur shadow-md">
         <p className="text-red-500 text-sm ">
-          This is placeholder data. Real sentiment scoring will be added once
+          This is placeholder data. Real emotion scoring will be added once
           transcript processing and NLP pipelines are fully implemented.
         </p>
       </div>

@@ -66,6 +66,11 @@ const DashboardPage = () => {
           </motion.div>
         ))}
       </div>
+      <div className="mt-6 w-full p-4 rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur shadow-md">
+        <p className="text-red-500 text-sm">
+          This application is currently under development. Some features and data visualizations may not be fully functional and will be using placeholder data.
+        </p>
+      </div>
     </div>
   );
 };
