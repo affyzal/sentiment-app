@@ -1,5 +1,7 @@
 "use client";
 
+import Skeleton from "@/components/Skeleton";
+import StatCard from "@/components/StatCard";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import {
@@ -61,7 +63,13 @@ const PolarityDashboard = () => {
     <div className="w-full bg-slate-900/95 text-slate-100 flex flex-col items-center p-4">
       {/* Header */}
       <div className="flex w-full justify-start gap-3 mb-6">     
-      {
+      {loading ? (
+        <>
+          <Skeleton width="120px" height="36px" className="rounded-md" />
+          <Skeleton width="120px" height="36px" className="rounded-md" />
+          <Skeleton width="120px" height="36px" className="rounded-md" />
+        </>
+      ) : (
         candidates.map((c) => (
           <button
             key={c}
@@ -76,102 +84,117 @@ const PolarityDashboard = () => {
             {c}
           </button>
         ))
-      }
+      )}
       </div>
 
       {/* Metric Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-6 w-full max-w-6xl mb-8">
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-3 shadow-md"
-        >
-          <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Overall Polarity</h2>
-          <p className="text-slate-400 text-sm">Average score: <span className="text-green-400">0.05</span></p>
-        </motion.div>
-
-        <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-3 shadow-md">
-          <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Positive Statements</h2>
-          <p className="text-slate-400 text-sm">40 statements</p>
-        </motion.div>
-
-        <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-3 shadow-md">
-          <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Neutral Statements</h2>
-          <p className="text-slate-400 text-sm">35 statements</p>
-        </motion.div>
-
-        <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-3 shadow-md">
-          <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Negative Statements</h2>
-          <p className="text-slate-400 text-sm">25 statements</p>
-        </motion.div>
+        {loading ? (
+          <>
+            <Skeleton height="76px" />
+            <Skeleton height="76px" />
+            <Skeleton height="76px" />
+            <Skeleton height="76px" />
+          </>
+        ) : (
+          <>
+            <StatCard label="Overall Polarity (Average Score)" value="0.05" />
+            <StatCard label="Positive Statements" value="40" />
+            <StatCard label="Neutral Statements" value="35" />
+            <StatCard label="Negative Statements" value="25" />
+        </>
+        )}
       </div>
 
       {/* Charts */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl w-full mb-8">
         {/* Candidate Trend */}
-        <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-4 shadow-md">
-          <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Polarity Trend by Candidate</h2>
-          <ResponsiveContainer width="100%" height={250}>
-            <LineChart data={mockPolarityTrend}>
-              <XAxis dataKey="time" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              {mockCandidates.map((c) => (
-                <Line
-                  key={c}
-                  type="monotone"
-                  dataKey={c}
-                  stroke={c === "Trump" ? "#22c55e" : "#ef4444"}
-                  strokeWidth={2}
-                />
-              ))}
-            </LineChart>
-          </ResponsiveContainer>
-        </motion.div>
-
-        {/* Distribution Pie */}
-        <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-4 shadow-md flex flex-col items-center">
-          <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Polarity Distribution</h2>
-          <ResponsiveContainer width="100%" height={250}>
-            <PieChart>
-              <Pie
-                data={mockDistribution}
-                dataKey="value"
-                nameKey="name"
-                innerRadius={40}
-                outerRadius={80}
-                paddingAngle={2}
-                label
-              >
-                {mockDistribution.map((entry) => (
-                  <Cell key={entry.name} fill={entry.color} />
+        {
+        loading ? (
+          <>
+            <Skeleton height="320px" />
+            <Skeleton height="320px" />
+          </>
+        ) : (
+        <>
+          <div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-4 shadow-md">
+            <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Polarity Trend by Candidate</h2>
+            <ResponsiveContainer width="100%" height={250}>
+              <LineChart data={mockPolarityTrend}>
+                <XAxis dataKey="time" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                {mockCandidates.map((c) => (
+                  <Line
+                    key={c}
+                    type="monotone"
+                    dataKey={c}
+                    stroke={c === "Trump" ? "#22c55e" : "#ef4444"}
+                    strokeWidth={2} />
                 ))}
-              </Pie>
-            </PieChart>
-          </ResponsiveContainer>
-        </motion.div>
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+          <div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-4 shadow-md flex flex-col items-center">
+            <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Polarity Distribution</h2>
+            <ResponsiveContainer width="100%" height={250}>
+              <PieChart>
+                <Pie
+                  data={mockDistribution}
+                  dataKey="value"
+                  nameKey="name"
+                  innerRadius={40}
+                  outerRadius={80}
+                  paddingAngle={2}
+                  label
+                >
+                  {mockDistribution.map((entry) => (
+                    <Cell key={entry.name} fill={entry.color} />
+                  ))}
+                </Pie>
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+        </>
+        )
+        }
       </div>
 
       {/* Top Quotes */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl w-full">
-        <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-4 shadow-md">
-          <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Top Positive Quotes</h2>
-          <ul className="list-disc list-inside text-slate-300">
-            {mockQuotes.positive.map((q, i) => (
-              <li key={i}>{q}</li>
-            ))}
-          </ul>
-        </motion.div>
+      {loading ? (
+        <>
+          <Skeleton height="120px" />
+          <Skeleton height="120px" />
+        </>
+      ) : (
+        <>
+          <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-4 shadow-md">
+              <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Top Positive Quotes</h2>
+              <ul className="list-disc list-inside text-slate-300">
+                {mockQuotes.positive.map((q, i) => (
+                  <li key={i}>{q}</li>
+                ))}
+              </ul>
+            </motion.div><motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-4 shadow-md">
+                <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Top Negative Quotes</h2>
+                <ul className="list-disc list-inside text-slate-300">
+                  {mockQuotes.negative.map((q, i) => (
+                    <li key={i}>{q}</li>
+                  ))}
+                </ul>
+              </motion.div>
+          </>   
+        )}
 
-        <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-4 shadow-md">
-          <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Top Negative Quotes</h2>
-          <ul className="list-disc list-inside text-slate-300">
-            {mockQuotes.negative.map((q, i) => (
-              <li key={i}>{q}</li>
-            ))}
-          </ul>
-        </motion.div>
+      </div>
+
+      <div className="mt-6 p-4 w-full rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur shadow-md">
+        <p className="text-red-500 text-sm">
+          This is placeholder data. Real sentiment scoring will be added once
+          transcript processing and NLP pipelines are fully implemented.
+        </p>
       </div>
     </div>
   );

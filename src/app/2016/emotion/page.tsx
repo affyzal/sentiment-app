@@ -1,7 +1,9 @@
 "use client";
 
+import Skeleton from "@/components/Skeleton";
+import StatCard from "@/components/StatCard";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   LineChart,
   Line,
@@ -71,13 +73,26 @@ const candidates: string[] = ["Donald Trump", "Hillary Clinton", "Trump vs Clint
 
 const EmotionDashboard = () => {
   const [selectedCandidate, setSelectedCandidate] = useState<string>(candidates[0]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const t = setTimeout(() => setLoading(false), 800);
+    return () => clearTimeout(t);
+  }, []);
+  
   
   return (
     <div className="min-h-screen w-full bg-slate-900/95 text-slate-100 flex flex-col items-center p-4">
       {/* Header */}
 
       <div className="flex w-full justify-start gap-3 mb-6">     
-      {
+      {loading ? (
+        <>
+          <Skeleton width="120px" height="36px" className="rounded-md" />
+          <Skeleton width="120px" height="36px" className="rounded-md" />
+          <Skeleton width="120px" height="36px" className="rounded-md" />
+        </>
+      ) : (
         candidates.map((c) => (
           <button
             key={c}
@@ -92,84 +107,131 @@ const EmotionDashboard = () => {
             {c}
           </button>
         ))
-      }
+      )}
+      
       </div>
 
       {/* Metric Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-6 w-full max-w-6xl mb-8">
-        {emotions.map((e) => (
-          <motion.div
-            key={e}
-            className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-3 shadow-md"
-          >
-            <h2 className="text-lg font-semibold text-[#64ffda] mb-2">{e}</h2>
-            <p className="text-slate-400 text-sm">Count: {mockDistribution.find((d) => d.name === e)?.value}</p>
-          </motion.div>
-        ))}
+      <div className="grid grid-cols-1 sm:grid-cols-4 gap-6 w-full max-w-6xl mb-5">
+        {loading ? (
+          <>
+            <Skeleton height="76px" />
+            <Skeleton height="76px" />
+            <Skeleton height="76px" />
+            <Skeleton height="76px" />
+          </>
+        ) : (
+          emotions.map((e) => (
+            <StatCard
+              key={e}
+              label={`${e} Sentences`}
+              value={mockDistribution.find((d) => d.name === e)?.value || 0}
+            />
+          ))
+        )
+        }
       </div>
 
+
       {/* Charts */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl w-full mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl w-full mb-6">
         {/* Emotion Trend */}
-        <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-4 shadow-md">
-          <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Emotion Trend Over Time</h2>
-          <ResponsiveContainer width="100%" height={250}>
-            <LineChart data={mockEmotionTrend}>
-              <XAxis dataKey="time" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              {emotions.map((e) => (
-                <Line
-                  key={e}
-                  type="monotone"
-                  dataKey={e}
-                  stroke={colors[e]}
-                  strokeWidth={2}
-                />
-              ))}
-            </LineChart>
-          </ResponsiveContainer>
-        </motion.div>
+        {loading ? (
+          <Skeleton height="320px" />
+        ) : (
+          <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-4 shadow-md">
+            <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Emotion Trend Over Time</h2>
+            <ResponsiveContainer width="100%" height={250}>
+              <LineChart data={mockEmotionTrend}>
+                <XAxis dataKey="time" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                {emotions.map((e) => (
+                  <Line
+                    key={e}
+                    type="monotone"
+                    dataKey={e}
+                    stroke={colors[e]}
+                    strokeWidth={2}
+                  />
+                ))}
+              </LineChart>
+            </ResponsiveContainer>
+          </motion.div>
+          )
+        }
 
         {/* Distribution Pie */}
-        <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-4 shadow-md flex flex-col items-center">
-          <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Emotion Distribution</h2>
-          <ResponsiveContainer width="100%" height={250}>
-            <PieChart>
-              <Pie
-                data={mockDistribution}
-                dataKey="value"
-                nameKey="name"
-                innerRadius={40}
-                outerRadius={80}
-                paddingAngle={2}
-                label
-              >
-                {mockDistribution.map((entry) => (
-                  <Cell key={entry.name} fill={entry.color} />
-                ))}
-              </Pie>
-            </PieChart>
-          </ResponsiveContainer>
-        </motion.div>
+        {loading ? (
+          <Skeleton height="320px" />
+        ) : (
+          <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-4 shadow-md flex flex-col items-center">
+            <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Emotion Distribution</h2>
+            <ResponsiveContainer width="100%" height={250}>
+              <PieChart>
+                <Pie
+                  data={mockDistribution}
+                  dataKey="value"
+                  nameKey="name"
+                  innerRadius={40}
+                  outerRadius={80}
+                  paddingAngle={2}
+                  label
+                >
+                  {mockDistribution.map((entry) => (
+                    <Cell key={entry.name} fill={entry.color} />
+                  ))}
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: "#0f172a",
+                      border: "1px solid #334155",
+                    }}
+                    labelStyle={{ color: "#64ffda" }}
+                    itemStyle={{ color: "#ffffff" }} // <- value text
+                  />
+
+                </Pie>
+              </PieChart>
+            </ResponsiveContainer>
+          </motion.div>
+          )
+        }
       </div>
 
       {/* Top Quotes */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl w-full">
-        {emotions.map((e) => (
-          <motion.div
-            key={e}
-            className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-4 shadow-md"
-          >
-            <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Top {e} Quotes</h2>
-            <ul className="list-disc list-inside text-slate-300">
-              {mockQuotes[e as keyof typeof mockQuotes].map((q, i) => (
-                <li key={i}>{q}</li>
-              ))}
-            </ul>
-          </motion.div>
-        ))}
+        {loading ? (
+          <>
+            <Skeleton height="115px" />
+            <Skeleton height="115px" />
+            <Skeleton height="115px" />
+            <Skeleton height="115px" />
+          </>
+        ) : (
+            emotions.map((e) => (
+            <motion.div
+              key={e}
+              className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-4 shadow-md"
+            >
+              <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Top {e} Quotes</h2>
+              <ul className="list-disc list-inside text-slate-300">
+                {mockQuotes[e as keyof typeof mockQuotes].map((q, i) => (
+                  <li key={i}>{q}</li>
+                ))}
+              </ul>
+            </motion.div>
+            
+          ))
+        )
+        }
+
+      </div>
+      <div className="mt-6 w-full p-4 rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur shadow-md">
+        <p className="text-red-500 text-sm ">
+          This is placeholder data. Real sentiment scoring will be added once
+          transcript processing and NLP pipelines are fully implemented.
+        </p>
       </div>
     </div>
   );

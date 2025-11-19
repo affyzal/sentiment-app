@@ -1,5 +1,7 @@
 "use client";
 
+import Skeleton from "@/components/Skeleton";
+import StatCard from "@/components/StatCard";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import {
@@ -80,7 +82,13 @@ const SubjectivityDashboard = () => {
     <div className="w-full bg-slate-900/95 text-slate-100 flex flex-col items-center p-4">
       {/* Header */}
       <div className="flex w-full justify-start gap-3 mb-6">     
-      {
+      {loading ? (
+        <>
+          <Skeleton width="120px" height="36px" className="rounded-md" />
+          <Skeleton width="120px" height="36px" className="rounded-md" />
+          <Skeleton width="120px" height="36px" className="rounded-md" />
+        </>
+      ) : (
         candidates.map((c) => (
           <button
             key={c}
@@ -95,104 +103,120 @@ const SubjectivityDashboard = () => {
             {c}
           </button>
         ))
-      }
+      )}
       </div>
 
       {/* Metric Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-6 w-full max-w-6xl mb-8">
-        <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-3 shadow-md">
-          <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Overall Subjectivity</h2>
-          <p className="text-slate-400 text-sm">Average score: <span className="text-amber-400">0.52</span></p>
-        </motion.div>
-
-        <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-3 shadow-md">
-          <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Subjective Statements</h2>
-          <p className="text-slate-400 text-sm">55 statements</p>
-        </motion.div>
-
-        <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-3 shadow-md">
-          <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Neutral Statements</h2>
-          <p className="text-slate-400 text-sm">25 statements</p>
-        </motion.div>
-
-        <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-3 shadow-md">
-          <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Objective Statements</h2>
-          <p className="text-slate-400 text-sm">20 statements</p>
-        </motion.div>
+        {loading ? (
+          <>
+            <Skeleton height="76px" />
+            <Skeleton height="76px" />
+            <Skeleton height="76px" />
+            <Skeleton height="76px" />
+          </>
+        ) : (
+          <>
+            <StatCard label="Overall Subjectivity" value="0.52" />
+            <StatCard label="Subjective Statements" value="55" />
+            <StatCard label="Neutral Statements" value="25" />
+            <StatCard label="Objective Statements" value="20" />
+        </>
+        )}
       </div>
-
       {/* Charts */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl w-full mb-8">
-        {/* Candidate Trend */}
-        <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-4 shadow-md">
-          <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Subjectivity Trend by Candidate</h2>
-          <ResponsiveContainer width="100%" height={250}>
-            <LineChart data={mockSubjectivityTrend}>
-              <XAxis dataKey="time" stroke="#94a3b8" />
-              <YAxis stroke="#94a3b8" />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: "#1e293b",
-                  border: "none",
-                  color: "white",
-                }}
-              />
-              <Legend />
-              {mockCandidates.map((c) => (
-                <Line
-                  key={c}
-                  type="monotone"
-                  dataKey={c}
-                  stroke={c === "Candidate A" ? colors.subjective : colors.objective}
-                  strokeWidth={2}
-                />
-              ))}
-            </LineChart>
-          </ResponsiveContainer>
-        </motion.div>
-
-        {/* Distribution Pie */}
-        <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-4 shadow-md flex flex-col items-center">
-          <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Subjectivity Distribution</h2>
-          <ResponsiveContainer width="100%" height={250}>
-            <PieChart>
-              <Pie
-                data={mockDistribution}
-                dataKey="value"
-                nameKey="name"
-                innerRadius={40}
-                outerRadius={80}
-                paddingAngle={2}
-                label
-              >
-                {mockDistribution.map((entry) => (
-                  <Cell key={entry.name} fill={entry.color} />
+        {
+        loading ? (
+          <>
+            <Skeleton height="320px" />
+            <Skeleton height="320px" />
+          </>
+        ) : (
+        <>
+          <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-4 shadow-md">
+            <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Subjectivity Trend by Candidate</h2>
+            <ResponsiveContainer width="100%" height={250}>
+              <LineChart data={mockSubjectivityTrend}>
+                <XAxis dataKey="time" stroke="#94a3b8" />
+                <YAxis stroke="#94a3b8" />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "#1e293b",
+                    border: "none",
+                    color: "white",
+                  }} />
+                <Legend />
+                {mockCandidates.map((c) => (
+                  <Line
+                    key={c}
+                    type="monotone"
+                    dataKey={c}
+                    stroke={c === "Candidate A" ? colors.subjective : colors.objective}
+                    strokeWidth={2} />
                 ))}
-              </Pie>
-            </PieChart>
-          </ResponsiveContainer>
-        </motion.div>
+              </LineChart>
+            </ResponsiveContainer>
+          </motion.div>
+          <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-4 shadow-md flex flex-col items-center">
+            <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Subjectivity Distribution</h2>
+            <ResponsiveContainer width="100%" height={250}>
+              <PieChart>
+                <Pie
+                  data={mockDistribution}
+                  dataKey="value"
+                  nameKey="name"
+                  innerRadius={40}
+                  outerRadius={80}
+                  paddingAngle={2}
+                  label
+                >
+                  {mockDistribution.map((entry) => (
+                    <Cell key={entry.name} fill={entry.color} />
+                  ))}
+                </Pie>
+              </PieChart>
+            </ResponsiveContainer>
+          </motion.div></>
+        )
+      }
       </div>
 
       {/* Top Quotes */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl w-full">
-        <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-4 shadow-md">
-          <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Top Subjective Quotes</h2>
-          <ul className="list-disc list-inside text-slate-300">
-            {mockQuotes.subjective.map((q, i) => (
-              <li key={i}>{q}</li>
-            ))}
-          </ul>
-        </motion.div>
-
-        <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-4 shadow-md">
-          <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Top Objective Quotes</h2>
-          <ul className="list-disc list-inside text-slate-300">
-            {mockQuotes.objective.map((q, i) => (
-              <li key={i}>{q}</li>
-            ))}
-          </ul>
-        </motion.div>
+        {
+        loading ? (
+          <>
+            <Skeleton height="120px" />
+            <Skeleton height="120px" />
+          </>
+        ) : (
+        <>
+          <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-4 shadow-md">
+            <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Top Subjective Quotes</h2>
+            <ul className="list-disc list-inside text-slate-300">
+              {mockQuotes.subjective.map((q, i) => (
+                <li key={i}>{q}</li>
+              ))}
+            </ul>
+          </motion.div>
+          <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-4 shadow-md">
+            <h2 className="text-lg font-semibold text-[#64ffda] mb-2">Top Objective Quotes</h2>
+            <ul className="list-disc list-inside text-slate-300">
+              {mockQuotes.objective.map((q, i) => (
+                <li key={i}>{q}</li>
+              ))}
+            </ul>
+          </motion.div>
+        </>
+        )
+      }
+      </div>
+      <div className="mt-6 w-full p-4 rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur shadow-md">
+        <p className="text-red-500 text-sm">
+          This is placeholder data. Real sentiment scoring will be added once
+          transcript processing and NLP pipelines are fully implemented.
+        </p>
       </div>
     </div>
   );

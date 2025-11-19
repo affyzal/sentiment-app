@@ -100,11 +100,15 @@ export default function SentimentScore2016() {
       </div>
 
       {/* Chart */}
-      <div className="w-full h-80 rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur shadow-md p-4">
-        {loading ? (
-          <Skeleton height="100%" />
-        ) : (
-          <ResponsiveContainer width="100%" height="100%">
+      <div className="w-full h-80">
+      {loading ? (
+        <Skeleton height="330px" />
+      ) : (
+        <motion.div className="rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur p-4 shadow-md">
+          <h2 className="text-lg font-semibold text-[#64ffda] mb-2">
+            Sentiment Score Over Time
+          </h2>
+          <ResponsiveContainer width="100%" height={250}>
             <LineChart data={mockData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
               <XAxis dataKey="time" stroke="#64748b" />
@@ -125,12 +129,14 @@ export default function SentimentScore2016() {
               />
             </LineChart>
           </ResponsiveContainer>
-        )}
-      </div>
+        </motion.div>
+      )}
+    </div>
+
 
       {/* Notes */}
       <div className="mt-6 p-4 rounded-xl border border-slate-800 bg-slate-800/40 backdrop-blur shadow-md">
-        <p className="text-slate-400 text-sm">
+        <p className="text-red-500 text-sm">
           This is placeholder data. Real sentiment scoring will be added once
           transcript processing and NLP pipelines are fully implemented.
         </p>
