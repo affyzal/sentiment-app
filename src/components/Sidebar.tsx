@@ -100,7 +100,7 @@ const SidebarContent = () => {
       </div>
 
       {years.map((year) => (
-        <SubMenu key={year} title={`${year} Debate`} year={year} items={analysisItems} />
+        <SubMenu key={year} title={year} year={year} items={analysisItems} />
       ))}
 
       <div className="flex items-center my-2 px-6">
