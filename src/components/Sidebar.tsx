@@ -25,16 +25,13 @@ const analysisIcons: Record<string, JSX.Element> = {
 const SubMenu = ({ title, year, items }: SubMenuProps) => {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    if (pathname.includes(`/${year}/`)) setOpen(true);
-  }, [pathname, year]);
+  const isActive = pathname.includes(`/${year}/`);
 
   return (
     <div className="flex flex-col">
       <button
         className={`flex items-center justify-between w-full px-6 py-3 transition rounded text-left ${
-          open ? "text-[#64ffda]" : "hover:text-[#64ffda] hover:bg-slate-800/50"
+          open || isActive ? "text-[#64ffda]" : "hover:text-[#64ffda] hover:bg-slate-800/50"
         }`}
         onClick={() => setOpen(!open)}
       >
