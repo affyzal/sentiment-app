@@ -98,3 +98,44 @@ body {
   0% { left: -150%; }
   100% { left: 150%; }
 }
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.5s forwards;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .animate-fadeInUp {
+    @apply opacity-100 translate-y-0;
+    animation: fadeInUp 0.5s forwards;
+  }
+
+  @keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-slideIn {
+    animation: slideIn 0.3s forwards;
+  }
+
+  @keyframes slideIn {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(0); }
+  }
+}
+
