@@ -1,3 +1,4 @@
+// SidebarFooter.tsx
 import Link from "next/link";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
 
@@ -9,7 +10,7 @@ const SidebarFooter = () => {
         target="_blank"
         className="hover:text-[#64ffda] transition-colors"
       >
-        <p className="text-xs">&copy; {new Date().getFullYear()} Afzal Miah</p>
+        <p className="text-xs">&copy; 2025 Afzal Miah</p>
       </Link>
 
       <div className="flex gap-2">
