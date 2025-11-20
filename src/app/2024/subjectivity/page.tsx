@@ -31,20 +31,20 @@ export default function SubjectivityDashboard() {
   );
 
   return (
-    <div className="w-full bg-slate-50 dark:bg-slate-900 px-6 mt-4 text-slate-900 dark:text-slate-100">
+    <div className="w-full bg-slate-900 px-6 mt-4 text-slate-100">
 
       {/* Average Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
         {debateAverages.map(({ year, avg }) => (
           <div
             key={year}
-            className="bg-slate-100 dark:bg-slate-800 rounded-xl shadow p-6 flex flex-col items-center justify-center"
+            className="bg-slate-800 rounded-xl shadow p-6 flex flex-col items-center justify-center"
           >
             <h2 className="text-lg font-semibold mb-2">{year} Debate</h2>
             <p className="text-3xl font-bold text-[#64ffda]">
               {(avg * 100).toFixed(1)}%
             </p>
-            <p className="text-sm text-slate-500 dark:text-slate-400">
+            <p className="text-sm text-slate-400">
               Avg. Subjectivity
             </p>
           </div>
@@ -54,7 +54,7 @@ export default function SubjectivityDashboard() {
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
         {/* Distribution Chart */}
-        <div className="bg-slate-100 dark:bg-slate-800 rounded-xl shadow p-6">
+        <div className="bg-slate-800 rounded-xl shadow p-6">
           <h3 className="text-lg font-semibold mb-4 text-center">
             Subjectivity Distribution
           </h3>
@@ -75,7 +75,7 @@ export default function SubjectivityDashboard() {
         </div>
 
         {/* Timeline Chart */}
-        <div className="bg-slate-100 dark:bg-slate-800 rounded-xl shadow p-6">
+        <div className="bg-slate-800 rounded-xl shadow p-6">
           <h3 className="text-lg font-semibold mb-4 text-center">
             Subjectivity Over Time
           </h3>

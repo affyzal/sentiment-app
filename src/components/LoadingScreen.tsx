@@ -5,12 +5,12 @@ import { ArrowPathIcon } from "@heroicons/react/24/solid";
 
 export default function LoadingScreen() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 px-6 py-10">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-slate-900 text-slate-100 px-6 py-10">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.4, type: "spring" }}
-        className="flex flex-col items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-2xl shadow-lg p-10 max-w-md text-center"
+        className="flex flex-col items-center justify-center bg-slate-800 rounded-2xl shadow-lg p-10 max-w-md text-center"
       >
         {/* Spinner Icon */}
         <motion.div
@@ -23,7 +23,7 @@ export default function LoadingScreen() {
 
         {/* Text */}
         <h1 className="text-2xl font-bold mb-2">Analyzing Data</h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-6">
+        <p className="text-slate-400 mb-6">
           Please wait while we process debate sentiment and prepare insights.
         </p>
 

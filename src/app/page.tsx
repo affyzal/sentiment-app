@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 const Home = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-50 dark:bg-slate-900 font-sans">
+    <div className="flex min-h-screen items-center justify-center bg-slate-900 font-sans">
       <main className="flex flex-col items-center justify-center w-full max-w-3xl px-6 sm:px-8 py-16 text-center">
         {/* Logo */}
         <motion.section 
@@ -34,7 +34,7 @@ const Home = () => {
 
         {/* Hero Subtitle */}
         <motion.p 
-          className="text-base sm:text-lg text-slate-700 dark:text-slate-300 mb-8"
+          className="text-base sm:text-lg text-slate-300 mb-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.6 }}
